@@ -1,0 +1,168 @@
+﻿@page "/swingking"
+
+<div class="my_container">
+    <br />
+    <img class="col-lg-8 col-md-9 col-sm-12 col-12 centerObjectHori roundCorners" src="/images/swingking/TitleText.png" />
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <div class="float-lg-left float-md-left text-center text-sm-center text-md-left">
+                <h3>Swing King</h3>
+                <p>Role - Solo Project</p>
+                <p>Genre - Arcade, Endless</p>
+                <p>Development time - 2 months</p>
+                <p>Programs - Unity, C#, Gimp</p>
+            </div>
+            <div class="float-lg-right float-md-right row justify-content-center justify-content-sm-center">
+                <div>
+                    <iframe width="300" height="450" src="https://www.youtube.com/embed/8w0F8p5KHkQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-10 col-11">
+            <a class="justify-content-center" href="https://play.google.com/store/apps/details?id=com.FilipLindgren.SwingKing" target="_blank">
+                <img src="/images/icons/GetItOnGooglePlaySmall.png" class="col-12" />
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="col-12 text-center">
+        <h2 class="font-weight-bold">Orignal Idea</h2>
+        <p>
+            This was a game idea that started during a course in school where we were supposed to plan a marketing campaign for an imaginary game.
+            I came up with the basic swinging mechanic and then we started joking around and we decided I should make a small prototype for fun that we could show at the end presentation.
+            I started working on a basic prototype of the game for mobile which was totally new for me since this was my first mobile game. At the end of the course we had a working prototype running on a phone.
+            After the course I asked the other members if it was okay with them if I took this idea and made it into a game that I could release to the google play store. They said it was fine and then I remade the game from the ground up.
+        </p>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="col-12 text-center">
+        <h2 class="font-weight-bold">Description</h2>
+        <p>
+            Swing King is a Flappy Bird inspired endless game where you get more score the further you go.
+            The game also has a save feature that saves your high score. The game has a leaderboard so players can compare their scores to each other, there is also an AD system in the game that gives the player one more chance if they die.
+        </p>
+    </div>
+</div>
+<br />
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <h2 class="text-center font-weight-bold text-lg-left text-md-center">Game Design</h2>
+        <h4 class="text-center text-lg-left text-md-center">Easy To Learn</h4>
+    </div>
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <p>
+                The aim was to make the game easy to learn which meant that I tried to keep the controls easy and therefore the only input you can do, during gameplay, is a touch input for whether the frog should swing or not.
+                This meant that the game did not need a tutorial. When I tested it on friends and family they would often fall down the first time they pressed the screen but immediately after understand that they need to hold thier finger on the screen to swing.
+                I thought that it would be important for the game to be easy to learn since most people I know don't spend hours playing mobile games each day. When I tested the game on people that don’t have much experience with games they still understood it rather quickly and enjoyed playing it.
+                I also added an arrow pointing towards the next hole in the wall so that the player could plan ahead and jump through the hole (See figure 1). This made the game less about reaction time and more about the timing and planning  of the swing.
+                I also added a bonus score system that rewards the player with extra score if they don’t touch the walls and instead fly straight through the hole (See figure 2). This is to motivate players to get better and plan their swings since this gives them higher score faster.
+                In other words it adds a small learning curve without forcing players to use it. This changes the way players aiming for high scores play while still allowing people to ignore it if they find it too hard.
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 col-5 float-left float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/swingking/HoleArrow.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 1. Warning Arrow</p>
+                </div>
+                <div class="m-1 p-0 col-5 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/swingking/BonusPoints.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 2. Bonus points</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 float-lg-left float-md-left text-center text-lg-left text-md-center p-1">
+            <h4 class="text-center text-lg-left text-md-center">Leaderboard</h4>
+            <p>
+                When I started to let friends and family play test the game for me some of them asked me what my high score was and if they had a higher score than other testers.
+                Therefore I implemented the leaderboard into the game so that players could compare their score to each other if they wanted.
+                This was achieved by implementing the Google Play Services plugin and utilize their leaderboard system for my game.
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-5 col-sm-12 col-12 float-lg-right float-md-right text-center text-lg-left text-md-center p-1">
+            <h4 class="text-center text-lg-left text-md-center">Quick To Play</h4>
+            <p>
+                The people around me often play mobile games to pass the time while waiting for something like the bus.
+                Because of this I tried to make the game short, so that people could pick it up and play it quickly and not feel like they needed to have a certain amount of time to play the game.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <h2 class="text-center font-weight-bold text-lg-left text-md-center">Things I Learned</h2>
+    </div>
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <p>
+                Since this was the first mobile game I made I of course learned a lot.
+                The first thing I learned was that the leaderboards were a good thing to implement since it made people play more and try to compete for the top spot during the first weeks of the games release.
+            </p>
+            <p>
+                I noticed a big problem with the save system, since the game only saved when you died which lead to people trying to have the app open while not playing just so they could continue on the game later.
+                This was a problem since my goal with the game was for it to be easy to pick up and play. Because of the implementation of the save system the game failed on that part.
+            </p>
+            <p>
+                When people got better at the game their games naturally got longer and longer.
+                This would have been fine if they would have been able to pause the game to take a break so that the game did not become a 10 minute focus session.
+                This was simply something I didn’t think of during the development. A pause function will be needed for the future games.
+            </p>
+            <p>
+                I tried implementing Ads into the game. But it was harder than I thought to implement a good Ad system into the game.
+                Even though I thought I had succeeded I realised that after releasing the app that I could have improved the Ad system.
+                When I released the game I heard people talking about their score and asking if it was with or without watching the Ad to get an extra life.
+                I understood that since the Ad gave players a second chance it was a lot easier to get higher scores if you watched an Ad.
+                Even though the player only was able to watch one Ad per run it still made a huge difference. So Ads will have to be more carefully implemented in the next game.
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 col-5 float-left float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/swingking/TitleScreen.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 3. Title Screen</p>
+                </div>
+                <div class="m-1 p-0 col-5 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/swingking/Swinging.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 4. Swinging</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <h2 class="font-weight-bold">Conclusion</h2>
+        <p>
+            I think the game is fun but I need to think more about the advantages a mobile phone has.
+            I need to make a pause feature in the next game and I need to give the players the choice to continue on a previous run after they reopen the game.
+            I also need to think more about the effects of the rewards from Ads and how to implement Ads in a fair way.
+            I think a better approach would be to reward players with other things than score and extra lives in games where leaderboards are involved and instead use those kinds of rewards in single player games where people can’t compare scores.
+            A more fitting Ad rewards for leaderboard games might be in the form of in-game currency after a run.
+        </p>
+    </div>
+</div>
+
+
+
+@code {
+}

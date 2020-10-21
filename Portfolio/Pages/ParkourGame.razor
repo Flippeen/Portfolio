@@ -1,0 +1,165 @@
+﻿@page "/parkourgame"
+
+<br />
+<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="float-lg-left text-center text-md-center text-lg-left">
+                <h3>Work in progress - Parkour Game</h3>
+                <p>Role - Solo Project</p>
+                <p>Genre - Arcade, Parkour</p>
+                <p>Development time - Ongoing</p>
+                <p>Programs - Unity, C#</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/DWG2Cr2Sv3A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="col-12 text-center">
+        <h2 class="font-weight-bold">Description</h2>
+        <p>
+            This is the game I am currently working on. It is a parkour game inspired by Mirror’s Edge and it will later probably turn into a speedrunning game or a parkour puzzle game.
+            The speedrunning is quite simple, get from point A to point B as fast as you can and optimize the path to get the best time.
+            The idea for the puzzle concept is that instead of having one straight path to the goal clearly visible for the player, the player will need to explore the levels to find the right way to the end.
+            This concept has not yet been tested but the goal behind it is to have the player trying different routes and looking for the one that leads them to the goal.
+        </p>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="col-12 text-center">
+        <h2 class="font-weight-bold">Mechanics</h2>
+        <p>
+            The player is able to chain all the movements together, this means that the player can go from wall run to wall climb to a ledge grab and then back to a wall run.
+            In the beginning I thought about making a limit on the amount of time these movements could be chained but I noticed during testing that the game is a lot more fun when you can chain the movement indefinitely.
+        </p>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <div class="vertical_div_cent">
+                <div>
+                    <h4 class="text-center text-lg-left text-md-center">Wall run</h4>
+                    <p>
+                        By wall running the player is able to run alongside the wall to cover a greater distance than by jumping. Wall running can also help the player get up to higher heights.
+                        Unlike the wall runs in for example Mirror’s Edge where the player can’t wall run forever I decided that after you jump from a wall you reset your wall run.
+                        This means that you can chain wall jump indefinitely and by doing so gain height and cover greater distances.
+                        If Q is pressed while wall running the character will look straight out from the wall making it easier to jump from the wall to a parallel wall.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/parkourgame/WallRun.gif" />
+                    <p class="font-weight-bold smallFont">Figure 1. Wall run</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <div class="vertical_div_cent">
+                <div>
+                    <h4 class="text-center text-lg-left text-md-center">Wall climb</h4>
+                    <p>
+                        If the player runs straight towards a wall and jumps they will start climbing up the wall. If the character detects an edge it checks the depth of the edge.
+                        If the edge is deep enough for the player to stand there the player will automatically climb up the edge. However if the edge is too thin for the player he will simply grab it and hang.
+                        If Q is pressed while performing a wall climb the character will turn around 180 degrees making it easier to chain wall climbs or jump straight out from the wall.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/parkourgame/WallClimb.gif" />
+                    <p class="font-weight-bold smallFont">Figure 2. Wall climb</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <div class="vertical_div_cent">
+                <div>
+                    <h4 class="text-center text-lg-left text-md-center">Ledge grab</h4>
+                    <p>
+                        While grabbing a ledge the player can move alongside the ledge but also choose to look back and jump off the ledge.
+                        The player can also climb up when they find a part of the ledge big enough for the character to stand on.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/parkourgame/LedgeGrab.gif" />
+                    <p class="font-weight-bold smallFont">Figure 3. Ledge grab</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <div class="vertical_div_cent">
+                <div>
+                    <h4 class="text-center text-lg-left text-md-center">Chain moves</h4>
+                    <p>
+                        A core part for the game is to be able to chain together the different kinds of movement options to allow the player to move however they want to.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/parkourgame/WallRunToClimb.gif" />
+                    <p class="font-weight-bold smallFont">Figure 4. Wall run to wall climb</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12 text-md-center text-lg-left">
+        <h2 class="font-weight-bold">Things I learned</h2>
+        <div class="col-12 col-lg-6 p-1 float-lg-left">
+            <h4>Future plans</h4>
+            <p>
+                I would like to add two more mechanics to the game to make the movement options a little more varied.
+                My goal with the movement is to make it fun enough so that players would enjoy running around in a room without a goal just playing around with the moves.
+            </p>
+        </div>
+        <div class="col-12 col-lg-5 p-1 float-lg-right">
+            <h4>Future mechanics</h4>
+            <p>There are two more mechanics I would like to implement into the game:</p>
+            <ul>
+                <li>Sliding</li>
+                <li>Grapple hooking</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    //col-lg-8 col-md-9 col-sm-11 col-12
+    /**/
+}

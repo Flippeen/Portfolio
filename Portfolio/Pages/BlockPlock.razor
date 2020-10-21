@@ -1,0 +1,180 @@
+﻿@page "/blockplock"
+
+<div class="my_container">
+    <br />
+    <img class="col-lg-8 col-md-9 col-sm-12 col-12 centerObjectHori roundCorners" src="/images/blockplock/BlockPlockTitle.png" />
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <div class="float-lg-left float-md-left text-center text-sm-center text-md-left">
+                <h3>BlockPlock</h3>
+                <p>Role - Solo Project</p>
+                <p>Genre - Arcade</p>
+                <p>Development time - 3 months</p>
+                <p>Programs - Unity, C#, Gimp</p>
+            </div>
+            <div class="float-lg-right float-md-right row justify-content-center justify-content-sm-center">
+                <div>
+                    <iframe width="300" height="450" src="https://www.youtube.com/embed/WgtVVpvm-lw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-10 col-11">
+            <a class="justify-content-center" href="https://play.google.com/store/apps/details?id=com.FilipLindgren.BlockPlock&hl=en_GB" target="_blank">
+                <img src="/images/icons/GetItOnGooglePlaySmall.png" class="col-12" />
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="col-12 text-center">
+        <h2 class="font-weight-bold">Orignal Idea</h2>
+        <p>
+            The starting idea for this game was to make a game more focused around leaderboards.
+            In the beginning I didn’t really know what sort of game I wanted to create so I just made a Tetris like game just for fun.
+            I then tried some different ideas for the game for example clicking on the row of the block to switch its position but when I tested it, it was more difficult than it was fun.
+            So then I tried to use buttons for inputs instead and basically making it more standard. From there I play tested a lot and I listened to people's feedback and made BlockPlock.
+        </p>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="col-12 text-center">
+        <h2 class="font-weight-bold">Description</h2>
+        <p>
+            To get score in BlockPlock you need to get four tiles together, it doesn’t matter if they are in a row or not as long as they connect to one of the cubes sides.
+            You control one falling block at the time and when that block has landed a new one appears at the top. If a block lands on one of the four top tiles you lose.
+            There is also a power up that pauses the game and lets the player switch position of two adjacent blocks.
+        </p>
+    </div>
+</div>
+<br />
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <h2 class="text-center font-weight-bold text-lg-left text-md-center">Game Design</h2>
+    </div>
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <h4 class="text-center text-lg-left text-md-center">Tutorial</h4>
+            <p>
+                I made a tutorial for the game since there are quite a few mechanics that could need a short explanation.
+                The tutorial only takes about one minute to complete so that the players can quickly learn the basics of the game and then start playing the game.
+                The player isn’t forced to play the tutorial but it is there for those who might need it to get started.
+                For example those that don’t have a lot of experience with games.
+            </p>
+            <h4 class="text-center text-lg-left text-md-center">Score system</h4>
+            <p>
+                The way to get score in the game is by grouping the tiles together into a minimum of four tiles. 
+                When this happens I tried to make it a little bit more satisfying for the player so I made a screen shake and made the block fall into a million pieces (see figure 2). 
+                The screen shakes more and faster the more tiles that are cleared at once and the block falling into pieces makes it easier to see what happened and which tiles were cleared. 
+                You also get bonus score if you clear more than four tiles at once. This is to try and motivate players to clear more tiles at once to maximize their score giving the game a little more depth.
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 col-5 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/blockplock/ClearBlocks.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 2. Clearing blocks</p>
+                </div>
+                <div class="m-1 p-0 col-5 float-left float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/blockplock/Tutorial.png" />
+                    <p class="font-weight-bold smallFont">Figure 1. Tutorial</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 float-lg-left float-md-left text-center text-lg-left text-md-center p-1">
+            <h4 class="text-center text-lg-left text-md-center">Power up</h4>
+            <p>
+                The power up has a meter that fills up by clearing tiles (see figure 2), if you clear more than four tiles at once you get extra value to the power up meter. 
+                Once the power up meter is full the player can press the clock to activate the power up. 
+                The power up in the game has a few purposes. First of all it serves as a short pause during game play. 
+                When I first implemented the power up I didn’t stop the time and since time didn’t stop, it felt like I never had time to use the power up. 
+                The final version stops time and gives the player time to think about what tiles to switch without stressing or forcing the player to a quick decision. 
+                Giving the player a timer on the power up could have made it harder to use. 
+                This might be good for players who find the game too easy but it would probably not be appreciated by the newer players. 
+                Therefore I chose to stop time and make it more new player friendly.
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-5 col-sm-12 col-12 float-lg-right float-md-right text-center text-lg-left text-md-center p-1">
+            <h4 class="text-center text-lg-left text-md-center">Save game</h4>
+            <p>
+                I learned a lot about saving the score and player progress from Swing King so when making this game I took extra time to make it good. 
+                The first thing I did was to make the game save the score if the player quit the app or closed the app down. 
+                This meant that the score was always saved but that didn’t solve the problem of people having the app open for a long time to finish a run. 
+                To fix this I implemented the feature to save the game board when the player closed the game. 
+                This made it so that if the player quit the game the system saved it right before they quit and when they then later restart the game the “Continue“ button can be pressed to start exactly where they quit the game. 
+                This means that people don’t need to feel like they have to keep the app open if they have a good run.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <h4 class="text-center text-lg-left text-md-center">Difficulty</h4>
+    </div>
+    <div class="col-12 row m-0">
+        <div class="col-md-12 col-lg-6 col-sm-12 col-12 p-0 m-0 float-lg-left float-md-left text-center text-lg-left text-md-center">
+            <p>
+                There are different game difficulties in the game (see figure. 3) and these game difficulties simply speed up the game giving the player less time to think.
+                I could have made the game harder in other ways as well like increasing the amount of tiles need to to get a clear from four to five.
+                However when trying this it felt wrong, it changed the whole game and the tactics for placing tiles and it just felt harder and less fun.
+                But when changing the game speed it made the game harder while still keeping the same basic mechanics as other difficulties.
+                Therefore I felt like it was only nesccesary to change the game speed.
+            </p>
+            <h4 class="text-center text-lg-left text-md-center">Unlocking difficulties</h4>
+            <p>
+                The plan with unlocking the harder levels was that players would get used to the game before trying the harder levels since it might make them feel that the game is boring because it’s too hard.
+                If you are good at the game it takes around 20 minutes to unlock all levels.
+                I have seen many friends skipping the tutorial of games only to find out later that they do not understand anything that is happening in the game and get frustrated at the game.
+                I also did this to give the players a feeling of progression and making them feel like they are actually getting rewarded for being good at the game (See figure 3).
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-6 col-12 p-0">
+            <div class="">
+                <div class="m-1 p-0 col-5 float-right float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/blockplock/Leaderboard.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 4. Leaderboard</p>
+                </div>
+                <div class="m-1 p-0 col-5 float-left float-lg-right">
+                    <img class="col-12 p-0" style="width:auto" src="/images/blockplock/LevelSelect.jpg" />
+                    <p class="font-weight-bold smallFont">Figure 3. Locked difficulties</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container overflow-hidden">
+    <div class="col-12">
+        <h2 class="font-weight-bold">Conclusion</h2>
+        <p>I am very satisfied with the game right now and I think that I created a game that people will enjoy for a while. When I add story mode later I think the game will have a new breath of life and people might come back to it.</p>
+        <p>
+            I tried to find a place in the game to implement Ads, but I just couldn’t see where the Ads could be implemented whithout affecting the game in the same way as in Swing King.
+            I think the best place for Ads in this game would be in the story mode of the game where the player could watch an Ad after losing and be rewarded with the top rows being cleared for the player, giving them one extra chance.
+            I think this would be better since story mode only affects one player and not all the players on the leaderboards like the Ads in Swing King.
+            If I would implement Ads this way, it would also help players if they have a hard time completing a level.
+        </p>
+        <p>There are also some minor problems with the leaderboards right now that I am currently working on resolving.</p>
+    </div>
+</div>
+
+
+
+@code {
+    //col-lg-8 col-md-9 col-sm-11 col-12
+    /**/
+}
