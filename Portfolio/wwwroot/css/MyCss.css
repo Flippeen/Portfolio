@@ -7,13 +7,22 @@ html, body {
 .roundCorners {
     border-radius: 30px;
 }
-
 .roundCornersTop {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
 }
+.roundCornersBottom {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
 .circle_corners {
     border-radius: 360px !important;
+}
+.centerModal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 .centerBase {
     position: absolute;
@@ -27,6 +36,12 @@ html, body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+.centerObject2 {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
 }
 
 .centerObjectHori {
@@ -43,8 +58,8 @@ html, body {
     width: 100%;
     height: auto;
 }
-.superFont{
-    font-size: 70px;
+.large_font {
+    font-size: 250%;
 }
 .smallFont{
     font-size: 12px;
@@ -55,16 +70,6 @@ html, body {
     padding-left: 0px;
     margin-right: auto;
     margin-left: auto
-}
-.TestBase {
-    position: relative;
-}
-.TestChild {
-    top: 50%;
-    transform: translateY(50%);
-}
-.Test {
-    height: 50%;
 }
 
 .hoverSelect {
@@ -101,15 +106,170 @@ html, body {
     /* transition effect. not necessary */
     transition: opacity 0.8s, visibility 0.8s;
 }
+.selectMain {
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.selectOptions {
+    width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.scrollableTable{
+    overflow-x: auto;
+}
+.piechart {
+    display: block;
+    position: relative;
+    /*width: 400px;
+    height: 400px;*/
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-image: conic-gradient( darkblue 0deg, grey 0 360deg);
+}
+.whiteMiddle {
+    display: block;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    margin: 0;
+}
+.middleText {
+    font-size: 55px;
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    margin: 0;
+}
+
+.container2 {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    /* Hide the browser's default radio button */
+    .container2 input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 30%;
+}
+
+/* On mouse-over, add a grey background color */
+.container2:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container2 input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container2 input:checked ~ .checkmark:after {
+    display: block;
+}
 
 .img_wrap:hover .img_description {
     visibility: visible;
     opacity: 0.9;
 }
-
+.small_img{
+    width: 20px;
+    height: auto;
+}
+.little_transparent{
+    opacity: 0.5;
+}
+.hand_cursor {
+    cursor: pointer;
+}
+.hand_cursor_blue {
+    cursor: pointer;
+    color: white;
+    background-color: #1B6EC2;
+}
+    .hand_cursor_blue:hover {
+        background-color: #145391;
+        color: white;
+    }
 .vertical_div_cent {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+.cover_base {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.hide_on_small_screen {
+    visibility: hidden;
+}
+@media(min-width:993px){
+    .hide_on_small_screen{
+        visibility: visible;
+    }
+
+    .cover_image {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background: black;
+        color: black;
+        visibility: visible;
+        opacity: 0.9;
+        /* transition effect. not necessary */
+        transition: opacity 0.8s, visibility 0.8s;
+    }
+
+        .cover_image:hover {
+            visibility: hidden;
+            opacity: 0;
+        }
 }

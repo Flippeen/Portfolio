@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item>
+    <id>Test</id>
+    <product>Xbox kontroll</product>
+    <comment>Test</comment>
+    <location>Stuvsta</location>
+  </Item>
+  <Item>
+    <id>12337486542534</id>
+    <product>Nocco</product>
+    <comment>Väldigt goda</comment>
+    <location>Telefonplan</location>
+  </Item>
+  <Item>
+    <id>48714263551342934418445</id>
+    <product />
+    <comment>Klossarna kan ätas av barn</comment>
+    <location />
+  </Item>
+  <Item>
+    <id>48714263551342934418445</id>
+    <product>Xbox kontroll</product>
+    <comment>Klossarna kan ätas av barn</comment>
+    <location />
+  </Item>
+</Items>

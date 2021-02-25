@@ -4,19 +4,17 @@
 @inject NavigationManager navMan
 
 <div class="main">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-        <a class="navbar-brand oi oi-home bg-light rounded mb-3 m-1 p-1" href="/"></a>
+    <nav class="navbar navbar-expand-sm navbar-light bg-grayNoHov fixed-top">
+        <a class="navbar-brand oi oi-home button-gray rounded mb-3 m-1 p-1" href="/"></a>
 
         <button @onclick="toggleNavBar" class="navbar-toggler" type="button" aria-expanded="@expandedState" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse @cssShowMenu">
             <div id="navbar-items" class="navbar-nav text-center">
-                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-light rounded p-1 ml-1" href="/swingking">Swing King<span class="sr-only">(current)</span></a>
-                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-light rounded p-1 ml-1" href="/blockplock">BlockPlock</a>
-                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-light rounded p-1 ml-1" href="/mrhedgehog">The Adventures of Mr Hedgehog</a>
-                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-light rounded p-1 ml-1" href="/parkourgame">Parkour Game</a>
-                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-light rounded p-1 ml-1" href="/aboutme">About me</a>
+                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-gray rounded p-1 ml-1" href="/">Lager lista<span class="sr-only">(current)</span></a>
+                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-gray rounded p-1 ml-1" href="/productTypePage">Product Type</a>
+                <a @onclick="collapsedNavBar" class="nav-item nav-link bg-gray rounded p-1 ml-1" href="/piechart">Piechart</a>
             </div>
         </div>
     </nav>
@@ -27,21 +25,8 @@
         @Body
     </div>
 
-    <div class="container bg-light roundCornersTop footer">
-            <div class="row justify-content-around pt-2">
-                <div class="text-left" style="line-height:20px">
-                    <h3>Links:</h3>
-                    <div class="row">
-                        <p class="ml-3"><a href="/Filip Lindgren CV 2020-09-08_ENG.pdf" target="_blank"><img src="/images/icons/CV.png" style="width:40px; height:40px" /></a></p>
-                        <p class="ml-3"><a href="https://www.linkedin.com/in/filip-lindgren-78ab6a167/" target="_blank"><img src="/images/icons/LinkedIn.png" style="width:40px; height:40px" /></a></p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <h3>Contact information:</h3>
-                    <p style="line-height:20px">Phone number: 070 649 55 53</p>
-                    <p style="line-height:20px">E-mail: filip.k.lindgren@gmail.com</p>
-                </div>
-            </div>
+    <div class="container bg-gray roundCornersTop footer">
+            
     </div>
 </div>
 

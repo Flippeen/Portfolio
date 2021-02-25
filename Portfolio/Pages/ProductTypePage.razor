@@ -1,0 +1,820 @@
+﻿@page "/productTypePage"
+@using Portfolio.Models
+@using System.Xml
+@using System.Xml.Linq
+@using BlazorInputFile
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@inject BestWebsite.Services.IFileUpload fileUpload
+@inject IWebHostEnvironment webHost
+@switch (currentState)
+{
+    case PopUpState.nothing:
+        break;
+    case PopUpState.create:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12  col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left">Lägg till produkt</h4>
+                        <button type="button" class="close" @onclick="ClosePreviewItemWindow">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-5">
+                            <div class="card roundCorners mb-2">
+                                <div class="card-body">
+                                    @if (newProductModel.image != null && newProductModel.image != string.Empty)
+                                    {
+                                        <div>
+                                            <img style="width: 350px; height: 350px" class="centerObjectHori" src="/Upload/@newProductModel.image" />
+                                        </div>
+                                    }
+                                    <label class="col-12 text-left p-0 m-0">Kategori</label>
+                                    <div>
+                                        <select class="form-control" @bind="@newProductModel.category">
+                                            <option hidden="hidden">-----------Välj produkttyp-----------</option>
+                                            <option value="Systemprodukt LAS/Trådlös trygghetslarmknapp">Systemprodukt LAS/Trådlös trygghetslarmknapp</option>
+                                            <option value="Energidryck">Energidryck</option>
+                                            <option value="Kontroll">Kontroll</option>
+                                            <option value="Leksak">Leksak</option>
+                                            <option value="Kläder">Kläder</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-12 text-left p-0 m-0">Namn</label>
+                                    <input class="col-12" placeholder="Namn" @bind-value="@newProductModel.name" @bind-value:event="oninput" />
+                                    <br />
+                                    <label class="alert-link roundCorners hand_cursor" @onclick="() => ChangeSecondPopUpState(SecondPopUp.image)">Lägg till en bild</label>
+                                    <label class="float-right alert-link roundCorners hand_cursor" @onclick="ViewMoreOptions">
+                                        @if (viewMoreOptions)
+                                        {<a>Dölj alternativ</a>}
+                                        else
+                                        {<a>Visa alternativ</a>}
+                                    </label>
+                                    @if (viewMoreOptions)
+                                    {
+                                        <label class="col-12 text-left p-0 m-0">Aktivering</label>
+                                        <textarea class="col-12" placeholder="Skriv aktiveringsinstruktionerna här" rows="2" @bind="@newProductModel.activation"></textarea>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer row justify-content-center">
+                        <button class="btn-success btn-NoOutline roundCorners py-2 px-4" @onclick="SaveItemToXml">Lägg till</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    case PopUpState.nothingToDelete:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12  col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <div class="row">
+                            <button type="button" class="close" @onclick="CloseModal">&times;</button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-5">
+                            <div class="card roundCorners mb-2">
+                                <div class="card-body">
+                                    <div class="col-12 text-center">
+                                        <h3>Du har inte valt några produkter</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    case PopUpState.delete:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12  col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left">Ta bort produkttyper:</h4>
+                        <div class="row">
+                            <button type="button" class="btn btn-danger btn-NoOutline roundCorners float-right px-3" @onclick="CloseModal">Nej</button>
+                            <button type="button" class="btn btn-success btn-NoOutline roundCorners float-right px-3 mx-2" @onclick="DeleteSelectedItems">Ja</button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <h4 class="font-weight-bold">Är du säker på att du vill ta bort produkttypen?</h4>
+                        <div class="card roundCorners mb-2">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    @for (int i = 0; i < itemsSelected.Count; i++)
+                                    {
+                                        int iVariable = i;
+                                        <div class="border border-dark roundCorners p-3 m-1 col-10">
+                                            <button class="btn btn-success btn-NoOutline roundCorners float-right px-3 mx-2" @onclick="() => RemoveFromDeleteList(itemsSelected[iVariable])">Ta inte bort</button>
+                                            <p>Namn: @itemsSelected[iVariable].name</p>
+                                            <p>ID: @itemsSelected[iVariable].category</p>
+                                            <p>Produkt: @itemsSelected[iVariable].activation</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    case PopUpState.preview:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12  col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left">Visa produkt</h4>
+                        <button type="button" class="close" @onclick="ClosePreviewItemWindow">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-5">
+                            <div class="card roundCorners mb-2">
+                                <div class="card-body">
+                                    @if (previewItem.image != null && previewItem.image != string.Empty)
+                                    {
+                                        <div>
+                                            <img style="width: 350px; height: 350px" class="centerObjectHori" src="/images/@previewItem.image" />
+                                        </div>
+                                    }
+                                    <label class="col-12 text-left p-0 m-0">Kategori</label>
+                                    <input class="col" placeholder="Kategori" disabled="disabled" @bind-value="previewItem.category" @bind-value:event="oninput" />
+                                    <label class="col-12 text-left p-0 m-0">Namn</label>
+                                    <input class="col" placeholder="Namn" disabled="disabled" @bind-value="previewItem.name" @bind-value:event="oninput" />
+                                    <label class="col-12 text-left p-0 m-0">Aktivering</label>
+                                    <textarea class="col" placeholder="Aktivering" disabled="disabled" rows="2" @bind-value="previewItem.activation" @bind-value:event="oninput" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer row justify-content-center">
+                        <button class="btn-success btn-NoOutline roundCorners py-2 px-4" @onclick="LoadEditPreview">Redigera</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    case PopUpState.edit:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12 col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left">Redigera produkten</h4>
+                        <button type="button" class="close" @onclick="ClosePreviewItemWindow">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-5">
+                            <div class="card roundCorners mb-2">
+                                <div class="card-body">
+                                    @if (newProductModel.image == null || newProductModel.image == string.Empty)
+                                    {
+                                        <div>
+                                            <div style="width: 350px; height: 350px" class="centerObjectHori p-3 my-2 bg-dark roundCorners">
+                                                <h1 class="text-white text-center">Bilden kommer visas här</h1>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <img style="width: 350px; height: 350px" class="centerObjectHori" src="/images/@newProductModel.image" />
+                                        </div>
+                                    }
+                                    <div class="custom-file">
+                                        @if (newProductModel.image == null || newProductModel.image == string.Empty)
+                                        {
+                                            <div>
+                                                <InputFile class="centerObjectHori" OnChange="HandleFileSelected" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row justify-content-center my-1">
+                                                <button type="button" class="close float-left mb-3" @onclick="DeselectImage">&times;</button>
+                                                <p class="float-right">@newProductModel.image</p>
+                                            </div>
+                                        }
+                                    </div>
+                                    <label class="col-12 text-left p-0 m-0">Kategori</label>
+                                    <div>
+                                        <select class="form-control" @bind="@newProductModel.category">
+                                            <option hidden="hidden">-----------Välj produkttyp-----------</option>
+                                            <option value="Systemprodukt LAS/Trådlös trygghetslarmknapp">Systemprodukt LAS/Trådlös trygghetslarmknapp</option>
+                                            <option value="Energidryck">Energidryck</option>
+                                            <option value="Kontroll">Kontroll</option>
+                                            <option value="Leksak">Leksak</option>
+                                            <option value="Kläder">Kläder</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-12 text-left p-0 m-0">Namn</label>
+                                    <input class="col-12" placeholder="Namn" @bind-value="@newProductModel.name" @bind-value:event="oninput" />
+                                    <label class="col-12 text-left p-0 m-0">Aktivering</label>
+                                    <textarea class="col-12" placeholder="Beskriv hur produkten aktiveras här" rows="2" @bind="@newProductModel.activation"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer row justify-content-center">
+                        <button class="btn-success btn-NoOutline roundCorners py-2 px-4" @onclick="() => EditedItem(newProductModel)">Spara</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    default:
+        break;
+                            }
+<div class="container col-11">
+    <div class="row justify-content-center">
+        <input class="m-1 p-1" placeholder="Sökord" />
+        <BSButton Class="m-1 py-1 px-4" Color="Color.Success" OnClick="SortByName">Sök</BSButton>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <button class="btn-danger btn-NoOutline roundCorners p-2 mx-2" @onclick="() => OpenSelectedItems(PopUpState.delete)">Radera valda</button>
+        <button class="btn-success btn-NoOutline roundCorners p-2 mx-2" @onclick="() => ChangePopUpState(PopUpState.create)">Lägg till ny produkttyp</button>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="scrollableTable border border-dark">
+            <table class="table table-bordered table-hover my-0">
+                <thead>
+                    <tr>
+                        <th scope="col"><input @bind="@isAllSelected" @onclick="ChangeSelectStatus" class="hand_cursor" type="checkbox" id="exampleCheck1"></th>
+                        <th scope="col">
+                            <div class="col-12 col-lg-5 float-left">Namn</div>
+                            @if (biggestFirstID.isActive)
+                            {@if (biggestFirstID.biggestFirst)
+                                {<BSButton Class="float-right p-1" OnClick="SortByName">Störst</BSButton>}
+                                else
+                                {<BSButton Class="float-right p-1" OnClick="SortByName">Minst</BSButton>}}
+                        else
+                        {@if (biggestFirstID.biggestFirst)
+                            {<BSButton Color="Color.None" Class="float-right border border-dark p-1" OnClick="SortByName">Störst</BSButton>}
+                            else
+                            {<BSButton Color="Color.None" Class="float-right border border-dark p-1" OnClick="SortByName">Minst</BSButton>}}
+                        </th>
+                        <th scope="col">
+                            <div class="col-12 col-lg-5 float-left">Kategori</div>
+                            @if (biggestFirstProduct.isActive)
+                            {@if (biggestFirstProduct.biggestFirst)
+                                {<BSButton Class="float-right p-1" OnClick="SortByCategory">Störst</BSButton>}
+                                else
+                                {<BSButton Class="float-right p-1" @onclick="SortByCategory">Minst</BSButton>}}
+                        else
+                        {@if (biggestFirstProduct.biggestFirst)
+                            {<BSButton Color="Color.None" Class="float-right border border-dark p-1" OnClick="SortByCategory">Störst</BSButton>}
+                            else
+                            {<BSButton Color="Color.None" Class="float-right border border-dark p-1" OnClick="SortByCategory">Minst</BSButton>}}
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < productModels.Count; i++)
+                    {
+                        int iVariable = i;
+                        <tr>
+                            <th style="width:auto"><input @bind="@productModels[iVariable].selected" class="hand_cursor" type="checkbox" id="exampleCheck1"></th>
+                            <td>@productModels[iVariable].name</td>
+                            <td>@productModels[iVariable].category</td>
+                            <td class="mx-0 text-center px-2 hand_cursor_blue" @onclick="() => PreviewItem(iVariable)">Visa</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@switch (currentSecondState)
+{
+    case SecondPopUp.nothing:
+        break;
+    case SecondPopUp.image:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12  col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <h4 class="modal-title float-left">Lägg till en bild för att enklare känna igen produkten</h4>
+                        <button type="button" class="close" @onclick="() => ChangeSecondPopUpState(SecondPopUp.nothing)">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-5">
+                            <div class="card roundCorners mb-2">
+                                <div class="card-body">
+                                    <div>
+                                        @if (newProductModel.image == null)
+                                        {
+                                            <div style="width: 350px; height: 350px" class="centerObjectHori p-3 my-2 bg-dark roundCorners">
+                                                <h1 class="text-white text-center">Bilden kommer visas här</h1>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <img style="width: 350px; height: 350px" class="centerObjectHori" src="/Upload/@newProductModel.image" />
+                                            </div>
+                                        }
+                                        <div class="custom-file">
+                                            @if (newProductModel.image == null)
+                                            {
+                                                <div>
+                                                    <InputFile class="centerObjectHori" OnChange="HandleFileSelected" />
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row justify-content-center my-1">
+                                                    <button type="button" class="close float-left mb-3" @onclick="DeselectImage">&times;</button>
+                                                    <p class="float-right">@newProductModel.image</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer row justify-content-center">
+                        <button class="btn-success btn-NoOutline roundCorners py-2 px-4" @onclick="() => ChangeSecondPopUpState(SecondPopUp.nothing)">Använd bilden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    case SecondPopUp.successful:
+        <div class="modal fade show" id="deleteModal" style="display:block" aria-modal="true" role="dialog">
+            <div class="modal-dialog-scrollable col-12  col-xl-4 col-lg-8 col-md-9 col-sm-10 centerModal">
+                <div class="modal-content roundCorners">
+                    <div class="modal-header">
+                        <button type="button" class="close" @onclick="() => ChangeSecondPopUpState(SecondPopUp.nothing)">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mx-5">
+                            <div class="card roundCorners mb-2">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <h1>Din produkt har lagts till!</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer row justify-content-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+        break;
+    default:
+        break;
+}
+<br />
+<br />
+@code {
+    enum PopUpState { nothing, create, delete, nothingToDelete, edit, preview, reasonToDelete, changeLocation, send }
+    PopUpState currentState;
+    enum SecondPopUp { nothing, image, successful }
+    SecondPopUp currentSecondState;
+    bool showPopUp;
+    void CloseModal()
+    {
+        showPopUp = false;
+        currentState = PopUpState.nothing;
+    }
+    void OpenModal(PopUpState newState)
+    {
+        currentState = newState;
+        showPopUp = true;
+    }
+    void ChangePopUpState(PopUpState newState)
+    {
+        currentState = newState;
+        if (newState == PopUpState.nothing)
+        {
+            isAllSelected = false;
+            StateHasChanged();
+        }
+    }
+    void ChangeSecondPopUpState(SecondPopUp newState)
+    {
+        currentSecondState = newState;
+    }
+    bool preLoaded = false;
+    //This is called when a file is selected in the input fields and is saved to the wwwroot/Upload folder
+    IFileListEntry file;
+    async Task HandleFileSelected(IFileListEntry[] files)
+    {
+        file = files[0];
+        if (file != null)
+        {
+            DeleteSavedImage();
+            await fileUpload.UploadAsync(file);
+            ShowImage();
+        }
+    }
+    //Deselects the chosen image to let the staff select a new image
+    void DeselectImage()
+    {
+        newProductModel.image = null;
+        imageSelected = false;
+        preLoaded = false;
+    }
+    //Loads in the image for the preview once an image is selected
+    void ShowImage()
+    {
+        var path = Path.Combine(webHost.ContentRootPath, "wwwroot/Upload");
+        if (!File.Exists(path))
+            Directory.CreateDirectory(path);
+        string[] files = Directory.GetFiles(path);
+        newProductModel.image = Path.GetFileName(files[0]);
+        imageSelected = true;
+    }
+    void MoveImageFromUpload()
+    {
+        if (newProductModel.image == null)
+            return;
+        //New path for the image
+        string newSavePath = $"wwwroot/images/{newProductModel.image}";
+
+        //The current saved path for the image
+        string imageSourcePath = Directory.GetFiles("wwwroot/Upload").FirstOrDefault();
+        if (File.Exists(imageSourcePath) && !File.Exists(newSavePath))
+            File.Move(imageSourcePath, newSavePath);
+        else if (File.Exists(imageSourcePath))
+            File.Delete(imageSourcePath);
+    }
+    //If selected image is true it will use the file from wwwroot/Upload and if it is false it will default to a gray image
+    bool imageSelected = false;
+    //Deletes any files in the upload to not have files saving in the upload if the staff decides to use another image
+    void DeleteSavedImage()
+    {
+        var path = Path.Combine(webHost.ContentRootPath, "wwwroot/Upload");
+        if (!File.Exists(path))
+            Directory.CreateDirectory(path);
+        string[] files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            File.Delete(file);
+        }
+        imageSelected = false;
+    }
+    bool viewMoreOptions = false;
+    void ViewMoreOptions()
+    {
+        viewMoreOptions = !viewMoreOptions;
+    }
+    bool showAddImagePopUp = false;
+    void ViewAddImagePopUp()
+    {
+        showAddImagePopUp = !showAddImagePopUp;
+    }
+    void CloseAndResetImage()
+    {
+        DeselectImage();
+        ViewAddImagePopUp();
+    }
+    void LoadEditPreview()
+    {
+        newProductModel.name = previewItem.name;
+        newProductModel.image = previewItem.image;
+        newProductModel.category = previewItem.category;
+        newProductModel.activation = previewItem.activation;
+        preLoaded = true;
+        ChangePopUpState(PopUpState.edit);
+    }
+    List<ProductModel> productModels = new List<ProductModel>();
+    ProductModel previewItem = new ProductModel();
+    bool showPreviewItem;
+    int itemClickedForPreview;
+    void PreviewItem(int listIndex)
+    {
+        itemClickedForPreview = listIndex;
+        previewItem = productModels[listIndex];
+        currentState = PopUpState.preview;
+    }
+    void ClosePreviewItemWindow()
+    {
+        previewItem = new ProductModel();
+        newProductModel = new ProductModel();
+        currentState = PopUpState.nothing;
+    }
+    bool isAllSelected;
+    void ChangeSelectStatus()
+    {
+        foreach (var item in productModels)
+            item.selected = !isAllSelected;
+    }
+    void RemoveFromDeleteList(ProductModel productToRemove)
+    {
+        int itemIndexToRemove = -1;
+        for (int i = 0; i < itemsSelected.Count; i++)
+        {
+            if (itemsSelected[i] == productToRemove)
+                itemIndexToRemove = i;
+        }
+        if (itemIndexToRemove >= 0)
+            itemsSelected.RemoveAt(itemIndexToRemove);
+    }
+    protected override void OnInitialized()
+    {
+        LoadItemsFromXml();
+    }
+    ProductModel newProductModel = new ProductModel();
+    List<ProductModel> itemsSelected = new List<ProductModel>();
+    void OpenSelectedItems(PopUpState stateToOpen)
+    {
+        itemsSelected.Clear();
+        foreach (var item in productModels)
+            if (item.selected)
+                itemsSelected.Add(item);
+
+        if (itemsSelected.Count <= 0)
+            OpenModal(PopUpState.nothingToDelete);
+        else
+            OpenModal(stateToOpen);
+    }
+    void DeleteSelectedItems()
+    {
+        foreach (var item in itemsSelected)
+        {
+            int itemIndexToRemove = -1;
+            for (int i = 0; i < productModels.Count; i++)
+            {
+                if (productModels[i] == item)
+                    itemIndexToRemove = i;
+            }
+            productModels.RemoveAt(itemIndexToRemove);
+            DeleteItemFromXml(item);
+        }
+        CloseModal();
+    }
+    void ChangeLocation(string locationChange)
+    {
+        foreach (var item in itemsSelected)
+        {
+            newProductModel.name = item.name;
+            newProductModel.category = item.category;
+            newProductModel.image = item.image;
+            newProductModel.activation = item.activation;
+            SetNewLocation(item, newProductModel);
+        }
+    }
+    void SetNewLocation(ProductModel oldItem, ProductModel newItem)
+    {
+        DeleteItemFromXml(oldItem);
+        SaveItemToXml();
+        ChangePopUpState(PopUpState.nothing);
+        newProductModel = new ProductModel();
+    }
+    void EditedItem(ProductModel editedModel)
+    {
+        DeleteItemFromXml(productModels[itemClickedForPreview]);
+        SaveItemToXml();
+        ChangePopUpState(PopUpState.nothing);
+        newProductModel = new ProductModel();
+    }
+    void LoadItemsFromXml()
+    {
+        XDocument xmlDoc = new XDocument();
+        xmlDoc = XDocument.Load("wwwroot/XML/ProductTypes.xml");
+
+        if (xmlDoc.Element("ProductTypes").FirstNode?.NodeType == XmlNodeType.Element)
+        {
+            IEnumerable<XElement> items = xmlDoc.Element("ProductTypes").Elements();
+            for (int i = 0; i < items.Count(); i++)
+            {
+                ProductModel newItem = new ProductModel();
+                newItem.name = items.ElementAt(i).Element("name").Value;
+                newItem.image = items.ElementAt(i).Element("image").Value;
+                newItem.category = items.ElementAt(i).Element("category").Value;
+                newItem.activation = items.ElementAt(i).Element("activation").Value;
+                productModels.Add(newItem);
+            }
+        }
+        SortByName();
+    }
+    void SaveItemToXml()
+    {
+        XDocument xmlDoc = new XDocument();
+        xmlDoc = XDocument.Load("wwwroot/XML/ProductTypes.xml");
+
+        xmlDoc.Element("ProductTypes").Add(new XElement("productType",
+            new XElement("image", newProductModel.image),
+            new XElement("name", newProductModel.name),
+            new XElement("category", newProductModel.category),
+            new XElement("activation", newProductModel.activation)
+            ));
+
+        xmlDoc.Save("wwwroot/XML/ProductTypes.xml");
+        MoveImageFromUpload();
+        productModels.Add(newProductModel);
+        newProductModel = new ProductModel();
+        ChangeSecondPopUpState(SecondPopUp.successful);
+        ChangePopUpState(PopUpState.nothing);
+    }
+    void DeleteItemFromXml(ProductModel productToDelete)
+    {
+        XDocument xmlDoc = new XDocument();
+        xmlDoc = XDocument.Load("wwwroot/XML/ProductTypes.xml");
+
+        if (xmlDoc.Element("ProductTypes").FirstNode.NodeType == XmlNodeType.Element)
+        {
+            IEnumerable<XElement> items = xmlDoc.Element("ProductTypes").Elements();
+            int savedIndex = -1;
+            for (int i = 0; i < items.Count(); i++)
+            {
+                ProductModel newItem = new ProductModel();
+                newItem.name = items.ElementAt(i).Element("name").Value;
+                newItem.category = items.ElementAt(i).Element("category").Value;
+                newItem.image = items.ElementAt(i).Element("image").Value;
+                newItem.activation = items.ElementAt(i).Element("activation").Value;
+                newItem.selected = true;
+                if (CompareItemModels(newItem, productToDelete))
+                {
+                    savedIndex = i;
+                    continue;
+                }
+            }
+            if (savedIndex >= 0)
+                xmlDoc.Element("ProductTypes").Elements().ElementAt(savedIndex).Remove();
+        }
+
+        xmlDoc.Save("wwwroot/XML/ProductTypes.xml");
+        productModels.Remove(productToDelete);
+    }
+    SortingModel biggestFirstID = new SortingModel();
+    SortingModel biggestFirstProduct = new SortingModel();
+    SortingModel biggestFirstLocation = new SortingModel();
+    void SortByName()
+    {
+        biggestFirstID.isActive = true;
+        biggestFirstProduct.isActive = false;
+        biggestFirstLocation.isActive = false;
+        biggestFirstID.biggestFirst = !biggestFirstID.biggestFirst;
+        List<ProductModel> newItemList = new List<ProductModel>();
+        for (int i = 0; i < productModels.Count; i++)
+        {
+            if (newItemList.Count == 0)
+                newItemList.Add(productModels[i]);
+            else
+            {
+                int injectAt = -1;
+                for (int j = 0; j < newItemList.Count; j++)
+                {
+                    if (newItemList[j].name == string.Empty || productModels[i].name == string.Empty)
+                    {
+                        injectAt = j;
+                        break;
+                    }
+                    if (biggestFirstProduct.biggestFirst)
+                    {
+                        if (productModels[i].name.First() > newItemList[j].name.First())
+                        {
+                            injectAt = j;
+                            break;
+                        }
+                        else if (productModels[i].name.First() == newItemList[j].name.First())
+                        {
+                            int value1 = 0;
+                            int value2 = 0;
+                            foreach (var item in productModels[i].name.ToCharArray())
+                                value1 += item;
+
+                            foreach (var item in newItemList[j].name.ToCharArray())
+                                value2 += item;
+
+                            if (value1 > value2)
+                            {
+                                injectAt = j;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (productModels[i].name.First() < newItemList[j].name.First())
+                        {
+                            injectAt = j;
+                            break;
+                        }
+                        else if (productModels[i].name.First() == newItemList[j].name.First())
+                        {
+                            int value1 = 0;
+                            int value2 = 0;
+                            foreach (var item in productModels[i].name.ToCharArray())
+                                value1 += item;
+
+                            foreach (var item in newItemList[j].name.ToCharArray())
+                                value2 += item;
+
+                            if (value1 < value2)
+                            {
+                                injectAt = j;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (injectAt >= 0)
+                    newItemList.Insert(injectAt, productModels[i]);
+                else
+                    newItemList.Add(productModels[i]);
+            }
+        }
+        productModels.Clear();
+        productModels.AddRange(newItemList);
+    }
+    void SortByCategory()
+    {
+        biggestFirstProduct.isActive = true;
+        biggestFirstID.isActive = false;
+        biggestFirstLocation.isActive = false;
+        biggestFirstProduct.biggestFirst = !biggestFirstProduct.biggestFirst;
+        List<ProductModel> newItemList = new List<ProductModel>();
+        for (int i = 0; i < productModels.Count; i++)
+        {
+            if (newItemList.Count == 0)
+                newItemList.Add(productModels[i]);
+            else
+            {
+                int injectAt = -1;
+                for (int j = 0; j < newItemList.Count; j++)
+                {
+                    if (newItemList[j].category == string.Empty || productModels[i].category == string.Empty)
+                    {
+                        injectAt = j;
+                        break;
+                    }
+                    if (biggestFirstProduct.biggestFirst)
+                    {
+                        if (productModels[i].category.First() > newItemList[j].category.First())
+                        {
+                            injectAt = j;
+                            break;
+                        }
+                        else if (productModels[i].category.First() == newItemList[j].category.First())
+                        {
+                            int value1 = 0;
+                            int value2 = 0;
+                            foreach (var item in productModels[i].category.ToCharArray())
+                                value1 += item;
+
+                            foreach (var item in newItemList[j].category.ToCharArray())
+                                value2 += item;
+
+                            if (value1 > value2)
+                            {
+                                injectAt = j;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (productModels[i].category.First() < newItemList[j].category.First())
+                        {
+                            injectAt = j;
+                            break;
+                        }
+                        else if (productModels[i].category.First() == newItemList[j].category.First())
+                        {
+                            int value1 = 0;
+                            int value2 = 0;
+                            foreach (var item in productModels[i].category.ToCharArray())
+                                value1 += item;
+
+                            foreach (var item in newItemList[j].category.ToCharArray())
+                                value2 += item;
+
+                            if (value1 < value2)
+                            {
+                                injectAt = j;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (injectAt >= 0)
+                    newItemList.Insert(injectAt, productModels[i]);
+                else
+                    newItemList.Add(productModels[i]);
+            }
+        }
+        productModels.Clear();
+        productModels.AddRange(newItemList);
+    }
+    bool CompareItemModels(ProductModel a, ProductModel b)
+    {
+        return a.name == b.name && a.category == b.category && a.image == b.image && a.activation == b.activation;
+    }
+}

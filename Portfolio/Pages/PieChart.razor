@@ -1,0 +1,67 @@
+﻿@page "/piechart"
+
+
+<br />
+<div class="container col-11">
+    <div class="row justify-content-center">
+        <div class="border border-dark roundCorners p-5">
+            <h1 class="row">Demo för antal produkter i lager</h1>
+            <div class="row justify-content-md-center">
+                <div>
+                    <label class="mt-2 mb-0">Totalt antal produkter i lager: </label><br />
+                    <input type="number" @bind-value="@totalAmountOfProducts" @bind-value:event="onchange" /><br />
+                    <label class="mt-2 mb-0">Antal tillgängliga produkter i lager: </label><br />
+                    <input type="number" @bind-value="@currentlyAvailable" @bind-value:event="onchange" /><br />
+                    <BSButton Class="my-1 py-1 px-4" Color="Color.Success" OnClick="ChangePieChartPrecent">Beräkna</BSButton><br />
+                    <label class="container2"><input type="radio" @onclick="() => ChangeBoolValue(false)" checked="checked" name="radio"><span class="checkmark"></span>Antal</label>
+                    <label class="container2"><input type="radio" @onclick="() => ChangeBoolValue(true)" checked="checked" name="radio"><span class="checkmark"></span>Procent</label>
+                </div>
+                <div style=@pieCharPrecent class="piechart">
+                    <div class="whiteMiddle">
+                        @if (showPrecentage)
+                        {
+                            <h1 class="middleText">@currentlyAvailableViewString</h1>
+                        }
+                        else
+                        {
+                            <h1 class="middleText">@currentlyAvailableViewFloat</h1>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    string pieCharPrecent = "";
+    float totalAmountOfProducts = 100;
+    float currentlyAvailable = 25;
+    string currentlyAvailableViewString = "";
+    float currentlyAvailableViewFloat = 0;
+    void ChangePieChartPrecent()
+    {
+        float percentage = (float)currentlyAvailable / (float)totalAmountOfProducts;
+
+        //Shows a precentage number in the middle of the circle
+        currentlyAvailableViewString = Math.Round(percentage * 100, 0).ToString() + "%";
+        //Shows the number of currently available items in the middle of the circle
+        currentlyAvailableViewFloat = currentlyAvailable;
+        pieCharPrecent = string.Format("background-image: conic-gradient(darkblue {0}deg, grey 0 360deg)", (int)(360 * percentage));
+        StateHasChanged();
+    }
+    bool showPrecentage = true;
+    void ChangeBoolValue(bool newValue)
+    {
+        showPrecentage = newValue;
+    }
+    protected override void OnInitialized()
+    {
+        ChangePieChartPrecent();
+    }
+
+    //Kvar att göra:
+    //Synka så att den kan kolla på området och se vilka produkter som saknas eller behövs fler av.
+    //Visa vilket lager som innehåller vilka produkter.
+}

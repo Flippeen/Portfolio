@@ -1,0 +1,14 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.btn-NoOutline {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+    .btn-NoOutline:focus {
+        outline: 0;
+    }

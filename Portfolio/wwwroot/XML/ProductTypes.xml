@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProductTypes>
+  <productType>
+    <image>Bild.png</image>
+    <name>Test</name>
+    <category>Något nytt och spännande</category>
+    <activation>Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest Testtest </activation>
+  </productType>
+  <productType>
+    <image>DragonBall5.png</image>
+    <name>Xbox kontroll</name>
+    <category>Kontroll</category>
+    <activation>Sätt i batterier och klicka på knappen</activation>
+  </productType>
+  <productType>
+    <image>SE_NOCCO_LimonDelSol_Hero_1500x1500px_200313.png</image>
+    <name>Nocco</name>
+    <category>Energidryck</category>
+    <activation />
+  </productType>
+  <productType>
+    <image>9001a137-07de-4d83-bda7-c91d8d46ff5c.jpg</image>
+    <name>Byggklossar i trä</name>
+    <category>Leksak</category>
+    <activation />
+  </productType>
+  <productType>
+    <image>kokt-rimmad-flasklagg-med-rotmos-721964-liten.webp</image>
+    <name>Fisk</name>
+    <category>Kläder</category>
+    <activation />
+  </productType>
+  <productType>
+    <image>kokt-rimmad-flasklagg-med-rotmos-721964-liten.webp</image>
+    <name>Fisk</name>
+    <category>Kläder</category>
+    <activation>Test</activation>
+  </productType>
+</ProductTypes>

@@ -6,13 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="BlazorStrap" Version="1.3.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\hedgehog\" />
-    <Folder Include="wwwroot\images\parkourgame\" />
-    <Folder Include="wwwroot\images\swingking\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
